@@ -1,0 +1,11 @@
+bugs:
+Done 0. searching tokens that don't support usd get error, need to fetch the token data (tokenpage by another link form coingecko)
+1. sparkline in homepage, when click does not fetch, i've put a prevent default so it won't break the fetch
+2. optimize the fetch in home page
+3. refreshing tokens page : 'No routes matched location "/token/bitcoin"'
+4. handle very large numbers (small like baby doge coin)
+5. sorting by volume asc does not work
+6. loading on osrt does not show loader but looks okay 
+
+to add: 
+1. last update date for all tokens list (for search)
