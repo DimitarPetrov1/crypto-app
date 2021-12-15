@@ -6,6 +6,7 @@ import ExtraDetails from "./ExtraDetails";
 import { numberConverter } from "../assets/numberConverter";
 import Loader from "./Loader";
 import { dark, posNeg } from "../defs";
+import Star from "../assets/svg/star.svg";
 
 const TokenPage = ({ id }) => {
   const [loadedToken, setLoadedToken] = useState(false);
@@ -13,7 +14,7 @@ const TokenPage = ({ id }) => {
   const [tokenPrice, setTokenPrice] = useState([]);
   const [tokenDetails, setTokenDetails] = useState([]);
   const [tokenGraph, setTokenGraph] = useState([]);
-  const [days, setDays] = useState("30");
+  const [days, setDays] = useState("7");
 
   const tokenPriceUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${id}&order=market_cap_desc&per_page=1&page=1&sparkline=false
   `;
@@ -60,7 +61,6 @@ const TokenPage = ({ id }) => {
       {loadedToken ? (
         <div style={style.tokenPage.wrap}>
           {/* Image and price info */}
-
           <div style={style.tokenPage.topBundle}>
             <img
               style={style.tokenPage.topBundle.img}
@@ -77,7 +77,8 @@ const TokenPage = ({ id }) => {
               <p>{`${tokenDetails.name}`}&nbsp;</p>
               <p
                 style={{ textTransform: "uppercase" }}
-              >{`(${tokenDetails.symbol})`}</p>
+              >{`(${tokenDetails.symbol})`}</p>{" "}
+              <img style={style.star} src={Star} alt="Favourite" />
             </div>
             <p style={{ fontSize: "2em", margin: 14 }}>
               {"$" + numberConverter(tokenPrice.current_price)}
@@ -140,6 +141,9 @@ const TokenPage = ({ id }) => {
 };
 
 const style = {
+  star: {
+    marginLeft: 10
+  },
   tokenPage: {
     wrap: {
       display: "flex",

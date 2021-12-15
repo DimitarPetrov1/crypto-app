@@ -18,6 +18,7 @@ const App = () => {
   const [graphDataHomepage, setGraphDataHomepage] = useState([]);
   const [tokensData, setTokensData] = useState([]);
   const [sortListOpen, setSortListOpen] = useState(false);
+  const [perPageOpen, setPerPageOpen] = useState(false);
   const [sortBy, setSortBy] = useState("Market cap Desc");
   const [loading, setLoading] = useState(false);
   const [perPage, setPerPage] = useState(10);
@@ -75,7 +76,6 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="*" element={<NotFound />} />
-
           <Route
             exact
             path="/"
@@ -88,36 +88,114 @@ const App = () => {
                   }
                 />
                 <div style={{ padding: "0 10px" }}>
+                  {/* Wrap for controls */}
                   <div
                     style={{
                       display: "flex",
-                      alignItems: "center",
                       justifyContent: "space-between",
-                      marginTop: 10,
-                      position: "relative",
-                      userSelect: "none",
-                      width: 200
+                      alignItems: "center",
+                      padding: "10px 0"
                     }}
                   >
-                    <div style={{ paddingRight: 10 }}>Sort by:</div>
-                    <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        position: "relative",
+                        userSelect: "none",
+                        borderBottom: "1px solid #fff"
+                      }}
+                      onClick={() => {
+                        setSortListOpen(!sortListOpen);
+                        setPerPageOpen(false);
+                      }}
+                    >
+                      <div style={{ paddingRight: 10, cursor: "pointer" }}>
+                        Sort by:
+                      </div>
+                      <div>
+                        {sortBy}
+                        <div
+                          style={
+                            sortListOpen
+                              ? {
+                                  position: "absolute",
+                                  right: 0,
+                                  backgroundColor: dark.app.text,
+                                  color: "#000",
+                                  borderRadius: 10,
+                                  fontWeight: 400,
+                                  fontSize: "0.9rem",
+                                  padding: "10px 14px",
+                                  zIndex: 2
+                                }
+                              : {
+                                  visibility: "hidden",
+                                  height: 0
+                                }
+                          }
+                        >
+                          <div
+                            style={style.listItem}
+                            onClick={(e) => {
+                              setSortBy(e.target.textContent);
+                              setSortListOpen(false);
+                            }}
+                          >
+                            Market cap Desc
+                          </div>
+                          <div
+                            style={style.listItem}
+                            onClick={(e) => {
+                              setSortBy(e.target.textContent);
+                              setSortListOpen(false);
+                            }}
+                          >
+                            Market cap Asc
+                          </div>
+                          <div
+                            style={style.listItem}
+                            onClick={(e) => {
+                              setSortBy(e.target.textContent);
+                              setSortListOpen(false);
+                            }}
+                          >
+                            Volume Desc
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/*  */}
+                    <div
+                      style={{
+                        position: "relative",
+                        userSelect: "none",
+                        cursor: "pointer"
+                      }}
+                    >
                       <div
                         style={{
-                          cursor: "pointer"
+                          borderBottom: "1px solid #fff"
                         }}
-                        onClick={() => setSortListOpen(!sortListOpen)}
+                        onClick={() => {
+                          setPerPageOpen(!perPageOpen);
+                          setSortListOpen(false);
+                        }}
                       >
-                        {sortBy}
+                        <div>{perPage} per page</div>
                       </div>
                       <div
                         style={
-                          sortListOpen
+                          perPageOpen
                             ? {
                                 position: "absolute",
                                 right: 0,
                                 backgroundColor: dark.app.text,
                                 color: "#000",
                                 borderRadius: 10,
+                                fontWeight: 400,
+                                fontSize: "0.9rem",
                                 padding: "10px 14px",
                                 zIndex: 2
                               }
@@ -128,56 +206,45 @@ const App = () => {
                         }
                       >
                         <div
-                          style={{
-                            marginBottom: 4,
-                            cursor: "pointer",
-                            borderBottom: "1px dotted " + dark.app.bg
-                          }}
+                          style={style.listItem}
                           onClick={(e) => {
-                            setSortBy(e.target.textContent);
-                            setSortListOpen(!sortListOpen);
+                            setPerPage(e.target.textContent);
+                            setPerPageOpen(false);
                           }}
                         >
-                          Market cap Desc
+                          10
                         </div>
                         <div
-                          style={{
-                            marginBottom: 4,
-                            cursor: "pointer",
-                            borderBottom: "1px dotted " + dark.app.bg
-                          }}
+                          style={style.listItem}
                           onClick={(e) => {
-                            setSortBy(e.target.textContent);
-                            setSortListOpen(!sortListOpen);
+                            setPerPage(e.target.textContent);
+                            setPerPageOpen(false);
                           }}
                         >
-                          Market cap Asc
+                          20
                         </div>
                         <div
-                          style={{
-                            marginBottom: 4,
-                            cursor: "pointer",
-                            borderBottom: "1px dotted " + dark.app.bg
-                          }}
+                          style={style.listItem}
                           onClick={(e) => {
-                            setSortBy(e.target.textContent);
-                            setSortListOpen(!sortListOpen);
+                            setPerPage(e.target.textContent);
+                            setPerPageOpen(false);
                           }}
                         >
-                          Volume Desc
+                          50
+                        </div>
+                        <div
+                          style={style.listItem}
+                          onClick={(e) => {
+                            setPerPage(e.target.textContent);
+                            setPerPageOpen(false);
+                          }}
+                        >
+                          100
                         </div>
                       </div>
                     </div>
                   </div>
-                  <select
-                    style={{ flex: 1 }}
-                    onChange={(e) => setPerPage(e.target.value)}
-                  >
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                  </select>
+                  {/* End of controls */}
                   {loading ? (
                     tokensData.map((t, i) => {
                       return (
@@ -280,6 +347,11 @@ const style = {
     flex: 2,
     zIndex: -1
   },
+  listItem: {
+    marginBottom: 6,
+    cursor: "pointer",
+    borderBottom: "1px dotted " + dark.app.bg
+  },
   tokenBox: {
     display: "flex",
     justifyContent: "space-between",
@@ -287,7 +359,6 @@ const style = {
     width: "100%",
     backgroundColor: dark.app.altBg,
     marginBottom: 10,
-    marginTop: 10,
     padding: 12,
     borderRadius: 16,
     lineHeight: 1.5,
