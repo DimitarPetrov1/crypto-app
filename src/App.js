@@ -9,6 +9,7 @@ import SearchComponent from "./components/SearchComponent";
 import Lines from "./components/charts/Lines";
 import { numberConverter } from "./assets/numberConverter";
 import Loader from "./components/Loader";
+import NotFound from "./components/NotFound";
 
 import { dark, posNeg } from "./defs";
 
@@ -73,6 +74,8 @@ const App = () => {
     >
       <Router>
         <Routes>
+          <Route path="*" element={<NotFound />} />
+
           <Route
             exact
             path="/"

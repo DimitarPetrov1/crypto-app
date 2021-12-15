@@ -2,7 +2,7 @@ const dark = {
   app: {
     text: "#fff",
     bg: "#6204ef",
-    altBg: "#ffffff40",
+    altBg: "#00000040",
     buttonBg: "#FF6700"
   }
 };

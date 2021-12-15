@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import Toggle from "./Toggle";
 
 const Settings = () => {
-  const [mode, setMode] = useState("dark");
+  const [dark, setDark] = useState(false);
+
+  const handleTheme = () => setDark(!dark);
+
   return (
     <div>
       {/* dark/light mode */}
-      <div>{mode} mode</div>
-      {/* Switch */}
-
-      <input type="radio" name="" id="" />
-      <input type="radio" name="" id="" />
+      <Toggle
+        handleToggle={handleTheme}
+        position={dark}
+        label={"Switch theme"}
+      />
     </div>
   );
 };

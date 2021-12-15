@@ -19,8 +19,8 @@ const Lines = ({ data, animate, width, stokeWidth }) => {
         width={600}
         data={data}
         animate={animate}
-        // Basis default / linear /step / natural
-        interpolation="natural"
+        // "basis", "bundle", "cardinal", "catmullRom", "linear", "monotoneX", "monotoneY", "natural", "step", "stepAfter", "stepBefore"
+        interpolation="basis"
       />
     </div>
   );
