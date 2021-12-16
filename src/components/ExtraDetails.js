@@ -1,44 +1,61 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { dark } from "../defs";
 
 const ExtraDetails = ({
   rank,
   dailyChange,
-  dailyVolume,
-  marketCap,
+  totalVolume,
+  marketCapTotal,
+  marketCapPercentage,
+  circulatingSupply,
   categories,
   description,
-  homepage,
+  homepage
 }) => {
   const createDescription = () => {
     return { __html: description };
   };
   const createHomepageLink = () => {
     return {
-      __html: `<a href="${homepage}">${homepage}</a>`,
+      __html: `<a href="${homepage}">${homepage}</a>`
     };
   };
 
+  useEffect(() => {
+    const links = document.querySelectorAll("a");
+    links.forEach((link) => {
+      link.style.color = dark.app.buttonBg;
+    });
+  }, []);
+
   return (
-    <div>
-      <p>Market cap rank: {rank}</p>
-      <p>24h change: {dailyChange}</p>
-      <p>24h volume: {dailyVolume}</p>
-      <p>Market cap: {marketCap}</p>
-      {categories.length === 1 ? "Category: " : "Categories: "}
-      {categories.map((cat, i) => (
-        <span key={i}>
-          {cat + `${i === categories.length - 1 ? "." : ", "}`}
-        </span>
-      ))}
-      <div className="test">
+    <div style={{ width: "100%" }}>
+      <p style={paragraph}>Market cap rank: {rank}</p>
+      <p style={paragraph}>Market cap: ${marketCapTotal}</p>
+      <p style={paragraph}>Market cap percentage: {marketCapPercentage}</p>
+      <p style={paragraph}>24h change: {dailyChange}</p>
+      <p style={paragraph}>Total volume: ${totalVolume}</p>
+
+      <div style={paragraph} className="test">
         <p>Description: </p>
         <p dangerouslySetInnerHTML={createDescription()}></p>
       </div>
-      <div>
+      <div style={paragraph}>
         Homepage: <span dangerouslySetInnerHTML={createHomepageLink()}></span>
       </div>
+      <p style={paragraph}>Circulating supply: {circulatingSupply}</p>
+      <p style={paragraph}>
+        {categories.length === 1 ? "Category: " : "Categories: "}
+        {categories.map((cat, i) => (
+          <span key={i}>
+            {cat + `${i === categories.length - 1 ? "." : ", "}`}
+          </span>
+        ))}
+      </p>
     </div>
   );
 };
+
+const paragraph = { marginBottom: 8, fontWeight: 400 };
 
 export default ExtraDetails;

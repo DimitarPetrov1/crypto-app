@@ -123,15 +123,21 @@ const TokenPage = ({ id }) => {
             Add {tokenDetails.name} to wallet
           </button>
 
-          {/* <ExtraDetails
+          <ExtraDetails
             rank={tokenDetails.market_cap_rank}
-            dailyChange={tokenPrice[id].usd_24h_change.toFixed(2) + "%"}
-            dailyVolume={"$" + numberConverter(tokenPrice[id].usd_24h_vol)}
-            marketCap={"$" + numberConverter(tokenPrice[id].usd_market_cap)}
+            dailyChange={
+              tokenPrice.price_change_percentage_24h.toFixed(2) + "%"
+            }
+            marketCapTotal={numberConverter(tokenPrice.market_cap)}
+            totalVolume={numberConverter(tokenPrice.total_volume)}
+            marketCapPercentage={
+              tokenPrice.market_cap_change_percentage_24h.toFixed(2) + "%"
+            }
+            circulatingSupply={numberConverter(tokenPrice.circulating_supply)}
             categories={tokenDetails.categories}
             description={tokenDetails.description.en}
             homepage={tokenDetails.links.homepage[0]}
-          /> */}
+          />
         </div>
       ) : (
         <Loader />
